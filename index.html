@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fetch Data from PHPMyAdmin</title>
+</head>
+<body>
+    <div id="dataContainer"></div>
+
+    <script>
+        window.onload = function() {
+            fetchData(); // Call the fetchData function when the page loads
+        };
+
+        function fetchData() {
+            // Create an XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // Configure the GET request to your PHP script
+            xhr.open("GET", "getData.php", true);
+
+            // Set the callback function to handle the response
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Parse the JSON response and display the data
+                    var data = JSON.parse(xhr.responseText);
+                    var dataContainer = document.getElementById("dataContainer");
+                    dataContainer.innerHTML = JSON.stringify(data, null, 2);
+                }
+            };
+
+            // Send the request
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
